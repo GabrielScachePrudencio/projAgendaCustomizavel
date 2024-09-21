@@ -1,25 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    
+    <!--para deixar resposivel deixa ele ser responsivel dentro do modo inspecionar no navegador-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto agenda do scache</title>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!--  fontes    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>Projeto agenda caseira</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+
 </head>
 <body>
-    <h1>Bom dia</h1>
-    <h1>Eu sou o beto</h1>
-    <div class="horas">
-        <p>  </p>
-    </div>
+    <article class="containerAgenda">
+        <!-- Nome do app -->
+        <section class="agendaTitulo">
+            <h1>Agenda Caseira </h1>
+        </section>
+        
+        <article class="agenda">
+            <!-- seccao onde vai ficar os nomes -->
 
-    <script>
-        let date = new Date()
-        let hora = date.getHours();
-        let minutos = date.getMinutes();
-        let segundos = date.getSeconds();
+            <section class="agendaNomes">
+                <form action="">
 
-        document.querySelector('.horas').innerHTML = `${hora}:${minutos}:${segundos}`
-    </script>
-    <h1>Agenda</h1>
+                    <div class="buttonADD">
+                        <button type="submit" id="addElementButton">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <div id="elementContainer">
+                        
+                    </div>
+                </form>
+                
+                
+            </section>
+            
+            
+            <!-- seccao onde vai ficar os conteudos dos nomes -->
+            <section class="agendaMensagens">
+                <section class="conteudoMensagens">
+
+                    <h3 style="text-align: center;" class="resultadoInputNomes">conteudo</h3>
+                        <div class="buttonADD">
+                            <button type="submit">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+
+                        </div>
+                        <!-- padrao mensagens  -->
+
+                            <div class="padraoMensa">
+                                <div class="deixandoAsInfoNomeio">
+                                    <p class="data"> </p>
+                                    <p class="horas">  </p>  
+                                    <input type="text" placeholder="Reunião">
+                                </div>
+                                <div>
+                                    <textarea name="Mensagem" class="texteArea1" >
+                                        
+                                    </textarea>
+                                </div>
+                            </div>    
+                       
+                </section>
+            </section>
+
+        </article>
+    </article>
+  
+
+    <script src="../static/js/scripts.js"> </script>
 </body>
 </html>
