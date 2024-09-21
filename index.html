@@ -8,5 +8,17 @@
 <body>
     <h1>Bom dia</h1>
     <h1>Eu sou o beto</h1>
+    <div class="horas">
+        <p>  </p>
+    </div>
+
+    <script>
+        let date = new Date()
+        let hora = date.getHours();
+        let minutos = date.getMinutes();
+        let segundos = date.getSeconds();
+
+        document.querySelector('.horas').innerHTML = `${hora}:${minutos}:${segundos}`
+    </script>
 </body>
 </html>
