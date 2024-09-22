@@ -31,6 +31,7 @@
     border: 1px solid black;
     width: 25%;
     height: 350px;
+    overflow: hidden;
 }
 
 .agendaNomes div{
@@ -42,13 +43,21 @@ input{
     height: 30px;
 }
 
+.tituloValorDoTitulo{
+    font-size: 40px;
+}
+
+
+.removerButton{
+
+}
 
 .buttonADD{
     text-align: right;
     padding-right: 10px;
 }
 
-.agendaNomes button{
+.buttonADD button{
     height: 60px;
     width: 60px;
     font-size: 40px;
@@ -57,7 +66,7 @@ input{
     background-color: white;
 }
 
-.agendaNomes button:hover{
+.buttonADD button:hover{
     background-color: grey;
     transition: 0.3s;
 }

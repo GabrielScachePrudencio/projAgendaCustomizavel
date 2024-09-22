@@ -36,10 +36,11 @@ addElementButton.addEventListener('click', function(){
         
         //modifica o conteundo 
         newElement.innerHTML = `
-                    <label for="titulo${qtddDeVezesQfoiAddNovoNome}">Novo nome:</label>
+                    <label class="tituloLabel" id="tituloLabel${qtddDeVezesQfoiAddNovoNome}">Novo nome:</label>
                     <input type="text" id="titulo${qtddDeVezesQfoiAddNovoNome}" placeholder="compromissos..." required>
-                    <button type="button" class="get-button" data-id="${qtddDeVezesQfoiAddNovoNome}"> <i class="fa-solid fa-check"></i> </button>
-                `
+                    <button type="button" class="get-button" data-id="${qtddDeVezesQfoiAddNovoNome}">
+                        <i class="fa-solid fa-check"></i>
+                    </button>                `
     
         //add o elemento no container
         elementContainer.appendChild(newElement)
@@ -47,18 +48,37 @@ addElementButton.addEventListener('click', function(){
     
 })
 
-const getButtonNames = document.getElementById('titulo'+qtddDeVezesQfoiAddNovoNome)
 
+// função que recebe as informações ao clicar no + dos agendaNomes
 elementContainer.addEventListener('click', function(event){
     if(event.target.classList.contains('get-button')) {
         const id = event.target.getAttribute('data-id');
         
         const inputTitulo = document.getElementById(`titulo${id}`);
+        const labelTitulo = document.getElementById(`tituloLabel${id}`);
         const resultadoConteudo = document.querySelector('.resultadoInputNomes');
-    
-        resultadoConteudo.innerHTML = `${inputTitulo.value} <br>`;
-        inputTitulo.value = ''; // Limpa o input após coletar o valor
+        
+        // Armazena o valor do input antes de limpar
+        const tituloValor = inputTitulo.value;
 
+        // Exibe o texto digitado
+        resultadoConteudo.innerHTML = `${tituloValor} <br>`;
+
+        const parentDiv = inputTitulo.parentElement
+
+        // Remove o input e o label do DOM
+        inputTitulo.remove();
+        labelTitulo.remove();
+        
+        // Remove o botão
+        event.target.remove();
+
+        // add o novo o texto e um buttao
+        parentDiv.innerHTML = 
+        `
+        <button class="removerButton"> Remover </button>
+        <h1 class="tituloValorDoTitulo"> ${tituloValor} </h1>
+        `
     }
 })
 
