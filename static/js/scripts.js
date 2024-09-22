@@ -16,7 +16,6 @@ document.querySelector('.horas').innerHTML = `${hora}:${minutos}:${segundos} `
 document.querySelector('.data').innerHTML = `${dia} - ${mes} - ${year}`
 
 
-
 //add um novo elemento nos nomes
 
 const addElementButton = document.getElementById('addElementButton')
@@ -32,16 +31,18 @@ addElementButton.addEventListener('click', function(){
         const newElement = document.createElement('div')
         
         //atribui uma classe
-        //newElement.classList.add('new-element');
+        //newElement.classList.add('new-element-Nomes');
         
         //modifica o conteundo 
         newElement.innerHTML = `
                     <label class="tituloLabel" id="tituloLabel${qtddDeVezesQfoiAddNovoNome}">Novo nome:</label>
-                    <input type="text" id="titulo${qtddDeVezesQfoiAddNovoNome}" placeholder="compromissos..." required>
-                    <button type="button" class="get-button" data-id="${qtddDeVezesQfoiAddNovoNome}">
-                        <i class="fa-solid fa-check"></i>
-                    </button>                `
-    
+                    <section class='deixarJunto'>
+                        <input type="text" id="titulo${qtddDeVezesQfoiAddNovoNome}" placeholder="compromissos..." required>
+                        <button type="button" class="get-button" data-id="${qtddDeVezesQfoiAddNovoNome}">
+                            <i class="fa-solid fa-check"></i>
+                        </button>               
+                    </section>
+                    `
         //add o elemento no container
         elementContainer.appendChild(newElement)
     }
@@ -77,8 +78,19 @@ elementContainer.addEventListener('click', function(event){
         parentDiv.innerHTML = 
         `
         <button class="removerButton"> Remover </button>
-        <h1 class="tituloValorDoTitulo"> ${tituloValor} </h1>
+        <h1 class="tituloValorDoTitulo" id="tituloValorDoTitulo"> ${tituloValor} </h1>
         `
+    }
+})
+
+
+// faz a função remover 
+elementContainer.addEventListener('click', function(event){
+    if(event.target.classList.contains('removerButton')) {
+        
+        const parentDiv = event.target.closest('div');  // Acessa o div pai mais próximo que contém o botão "Remover"
+        parentDiv.remove();  // Remove o container completo
+
     }
 })
 

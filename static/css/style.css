@@ -34,6 +34,13 @@
     overflow: hidden;
 }
 
+.deixarJunto{
+    display: flex;
+}
+.deixarJunto h1{
+    margin-left: 10px;
+}
+
 .agendaNomes div{
     margin: 10px 10px 10px 10px;
 }
@@ -49,7 +56,8 @@ input{
 
 
 .removerButton{
-
+    height: 40px;
+    margin-top: 10px;
 }
 
 .buttonADD{
