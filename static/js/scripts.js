@@ -178,11 +178,11 @@ newElementNomeToMensagem.addEventListener('click', function(event){
     }
 })
 
-
+/*
 fazer com que cada nome tenha sua proprio compromissos e que pode addionar quantos quiseres
 
 olhar no chat gpt 
-
+*/
 
 
 
