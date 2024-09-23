@@ -25,19 +25,20 @@
 .agenda{
     display: flex;
     justify-content: space-between;
+    height: auto;
 }
 
 .agendaNomes{
-    border: 1px solid black;
+    border-top: 1px solid black;
     width: 25%;
-    height: 350px;
-    overflow: hidden;
+
 }
 
 .deixarJunto{
     display: flex;
 }
 .deixarJunto h1{
+    font-size: 30px;
     margin-left: 10px;
 }
 
@@ -95,38 +96,44 @@ input{
 
 .conteudoMensagens{
     text-align: right;
-    height: 350px;
-    overflow: hidden;
+
 }
 
-.padraoMensa{
+
+/* classes para a parte do novo elemento compromossios*/
+.ContAddCompromissoMSG{
+    text-align: center;
+}
+
+.compromisso{
     border: 1px solid black;
-    padding: 10px;
+    text-align: left;
     margin: 20px 0px;
-}
-
-.deixandoAsInfoNomeio{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
     padding: 10px;
 }
-
-.deixandoAsInfoNomeio p{
-    margin-right: 10px;
-}
-.deixandoAsInfoNomeio input{
-    width: 60%;
-    height: 20px;
-    margin-right: 10px;
-}
-
-.texteArea1{
+.soParaDeirarNaDireita{
     text-align: right;
-    width: 100%;
-    margin-right: 10px;
-
 }
+
+.compromisso button{
+    margin-top: 20px;
+}
+
+.horaData {
+    display: flex;
+    font-size: 12px;
+}
+.horaData p{
+    margin-right: 10px;
+}
+
+.horaDataDoSeuCompromisso{
+    display: flex;
+}
+.horaDataDoSeuCompromisso p{
+    margin-right: 10px;
+}
+
 
 
 @media (max-width: 500px) {
