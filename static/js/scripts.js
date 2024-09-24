@@ -28,6 +28,9 @@ addElementButton.addEventListener('click', function() {
             <label class="tituloLabel" id="tituloLabel${qtddDeVezesQfoiAddNovoNome}">Novo nome:</label>
             <section class='deixarJunto'>
                 <input type="text" id="titulo${qtddDeVezesQfoiAddNovoNome}" placeholder="compromissos..." required>
+                 <button type="button" class="removerButton" data-id="${qtddDeVezesQfoiAddNovoNome}">
+                    Rem
+                </button>   
                 <button type="button" class="get-button" data-id="${qtddDeVezesQfoiAddNovoNome}">
                     enviar
                 </button>               
@@ -48,7 +51,7 @@ elementContainer.addEventListener('click', function(event) {
         const inputTitulo = document.getElementById(`titulo${id}`);
         const labelTitulo = document.getElementById(`tituloLabel${id}`);
         const resultadoConteudo = document.querySelector('.resultadoInputNomes');
-
+        const buttonRemover = document.querySelector('.removerButton')
        
         const tituloValor = inputTitulo.value;
 
@@ -59,6 +62,7 @@ elementContainer.addEventListener('click', function(event) {
         
         inputTitulo.remove();
         labelTitulo.remove();
+        buttonRemover.remove();
         event.target.remove();
 
         
@@ -127,6 +131,7 @@ newElementNomeToMensagem.addEventListener('click', function(event){
             <input id="inputResumoMSG" class="inputResumoMSG" required>
             
             <section class="soParaDeirarNaDireita">
+                <button class="RemovendoCompromissoMSG" id="RemovendoCompromissoMSG${qtddDeVezesQfoiAddNovoNome}"> Rem </button>
                 <button class="FinalizandoCompromissoMSG" id="addCompromissoMSG${qtddDeVezesQfoiAddNovoNome}"> ADD </button>
             </section>
         </section>
@@ -172,7 +177,10 @@ newElementNomeToMensagem.addEventListener('click', function(event){
                 <p class="inputDataComprom" id="dataComp">  ${inputDataComprom}</p>
                 <p class="inputTituloComprom" id="horario"> <strong>  ${inputTituloComprom} </strong></p>
                 <p class="inputResumoComprom" id="dataComp">  '${inputResumoComprom}'</p>
-            </section>            
+            </section>     
+            <section class="soParaDeirarNaDireita">
+                <button class="RemovendoCompromissoMSG" id="RemovendoCompromissoMSG${qtddDeVezesQfoiAddNovoNome}"> Rem </button>
+            </section>       
         </section>
         `
     }
@@ -186,6 +194,15 @@ olhar no chat gpt
 
 
 
+//função para remover o compromiss
+newElementNomeToMensagem.addEventListener('click', function(event){
+    if (event.target.classList.contains('RemovendoCompromissoMSG')) {
+        const parentDiv = event.target.closest('.new-element-Mensagens');
+        parentDiv.remove();
+
+
+    }
+})
 
 
 

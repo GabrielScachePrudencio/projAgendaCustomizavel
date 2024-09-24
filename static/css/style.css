@@ -111,7 +111,14 @@ input{
     margin: 20px 0px;
     padding: 10px;
 }
+
+
+.compromisso section{
+    border: none;
+}
 .soParaDeirarNaDireita{
+    display: flex;
+    justify-content: space-between;
     text-align: right;
 }
 
