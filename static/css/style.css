@@ -29,6 +29,8 @@
 }
 
 .agendaNomes{
+    overflow-y: scroll;
+    height: 480px;
     border-top: 1px solid black;
     width: 25%;
 
@@ -95,6 +97,8 @@ input{
 
 
 .conteudoMensagens{
+    overflow-y: scroll;
+    height: 450px;
     text-align: right;
 
 }

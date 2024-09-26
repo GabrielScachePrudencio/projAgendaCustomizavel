@@ -13,7 +13,6 @@ let qtddDeVezesQfoiAddNovoNome = 0;
 addElementButton.addEventListener('click', function() {
     event.preventDefault(); 
     
-    if (qtddDeVezesQfoiAddNovoNome < 3) {
         qtddDeVezesQfoiAddNovoNome++;
 
         // Cria o novo elemento
@@ -39,7 +38,7 @@ addElementButton.addEventListener('click', function() {
 
         // Adiciona o elemento no container
         elementContainer.appendChild(newElement);
-    }
+    
 });
 
 
@@ -57,21 +56,19 @@ elementContainer.addEventListener('click', function(event) {
 
         resultadoConteudo.innerHTML = `${tituloValor} <br>`;
 
-        const parentDiv = inputTitulo.closest('.new-element-Nomes');  
+        const parentDiv = inputTitulo.closest('.new-element-Nomes');
 
-        
+        // Remove somente os inputs e o botão "enviar"
         inputTitulo.remove();
         labelTitulo.remove();
-        buttonRemover.remove();
         event.target.remove();
 
-        
+        // Adiciona o título dentro do contêiner, sem mexer no botão "Rem"
         parentDiv.innerHTML += `
         <section class='deixarJunto'>
-            <button class="removerButton"> Remover </button>
             <h1 class="tituloValorDoTitulo" id="tituloValorDoTitulo${id}"> ${tituloValor} </h1>
         </section>
-        `;
+        `;      
 
         // Adiciona o novo título na seção de mensagens
         const newTitleElement = document.createElement('div');
