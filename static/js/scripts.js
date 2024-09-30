@@ -1,233 +1,194 @@
+/*
+Metas:
+-formartar os nomes deixar o titulo em cima a data e hora em baixo juntas e o resumo em baixo
+
+- fazer o add para o 'nome' deixa-lo em um lugar acima dos compromisso baxicamente criar um div antes so para ele nao ser afetado
+
+- mudar o input depois de dar o nome ele remover o input e o label e deixar so o nome
+
+- depois de criar mudar o nome de entrar para ver ou sei la add ou um '+'
+
+- o botao de remover nao esta funcionando quando vc vai ver o que ja foi escrito dos compromissoos
+
+- deixar mais bonito o nome nos nomes e organizado
+
+- colorir o site
+
+
+*/
+
+
+
+// Limpa o localStorage quando a página for carregada
+window.onload = function() {
+    localStorage.clear();
+};
+
 
 //add um novo elemento nos nomes
-
 const addElementButton = document.getElementById('addElementButton');
 const elementContainer = document.getElementById('elementContainer');
-
-//elemetno container das msg
 const newElementNomeToMensagem = document.getElementById('newElementNomeToMensagem');
 
 let qtddDeVezesQfoiAddNovoNome = 0;
 
 //função que vai permitir alterar a ordem do elementos nomes
-var permitirMoverNomes = new Sortable(document.getElementById('elementContainer'), {
+var permitirMoverNomes = new Sortable(elementContainer, {
     animation: 150,
     ghostClass: 'sortable-ghost',
-})
-
-var permitirMoverComprom = new Sortable(document.getElementById('newElementNomeToMensagem'), {
-    animation: 150,
-    filter: '.ContAddCompromissoMSG', // faz com que todos os elementos dentro de newElementNomeToMensagem tenham a prop menos .ContAddCompromissoMSG
-    ghostClass: 'sortable-ghost',
-})
-
-
-// Cria o elemento com nomes e inputs
-addElementButton.addEventListener('click', function() {
-    event.preventDefault(); 
-    
-        qtddDeVezesQfoiAddNovoNome++;
-
-        // Cria o novo elemento
-        const newElement = document.createElement('div');
-
-        // Atribui uma classe
-        newElement.classList.add('new-element-Nomes');
-
-        newElement.id = `container${qtddDeVezesQfoiAddNovoNome}`;
-
-        newElement.innerHTML =
-        `
-            <label class="tituloLabel" id="tituloLabel${qtddDeVezesQfoiAddNovoNome}">Novo nome:</label>
-            <section class='deixarJunto'>
-                <input type="text" id="titulo${qtddDeVezesQfoiAddNovoNome}" placeholder="compromissos..." required>
-                 <button type="button" class="removerButton" data-id="${qtddDeVezesQfoiAddNovoNome}">
-                    Rem
-                </button>   
-                <button type="button" class="get-button" data-id="${qtddDeVezesQfoiAddNovoNome}">
-                    enviar
-                </button>               
-            </section>
-        `;
-
-        // Adiciona o elemento no container
-        elementContainer.appendChild(newElement);
-    
 });
 
+var permitirMoverComprom = new Sortable(newElementNomeToMensagem, {
+    animation: 150,
+    filter: '.ContAddCompromissoMSG',
+    ghostClass: 'sortable-ghost',
+});
 
-// Função que recebe as informações ao clicar no botão de adicionar nome
+// Cria o elemento com nomes e inputs
+addElementButton.addEventListener('click', function(event) {
+    event.preventDefault(); 
+
+    qtddDeVezesQfoiAddNovoNome++;
+    const newElement = document.createElement('div');
+    newElement.classList.add('new-element-Nomes');
+    newElement.id = `container${qtddDeVezesQfoiAddNovoNome}`;
+
+    newElement.innerHTML = `
+        <label class="tituloLabel" id="tituloLabel${qtddDeVezesQfoiAddNovoNome}">Novo nome:</label>
+        <section class='deixarJunto'>
+            <input type="text" id="titulo${qtddDeVezesQfoiAddNovoNome}" placeholder="compromissos..." required>
+            <button type="button" class="removerButton" data-id="${qtddDeVezesQfoiAddNovoNome}">Rem</button>   
+            <button type="button" class="get-button" data-id="${qtddDeVezesQfoiAddNovoNome}">enviar</button>   
+        </section>
+    `;
+
+    elementContainer.appendChild(newElement);
+});
+
+// Carrega compromissos e permite criar novos
 elementContainer.addEventListener('click', function(event) {
     if (event.target.classList.contains('get-button')) {
         const id = event.target.getAttribute('data-id');
+        const tituloValor = document.getElementById(`titulo${id}`).value;
 
-        const inputTitulo = document.getElementById(`titulo${id}`);
-        const labelTitulo = document.getElementById(`tituloLabel${id}`);
+        // Exibe o nome do título atual
         const resultadoConteudo = document.querySelector('.resultadoInputNomes');
-        const buttonRemover = document.querySelector('.removerButton')
-       
-        const tituloValor = inputTitulo.value;
+        resultadoConteudo.innerHTML = `Compromissos para <strong>${tituloValor}</strong>`;
 
-        resultadoConteudo.innerHTML = `${tituloValor} <br>`;
+        // Limpa a área de compromissos
+        newElementNomeToMensagem.innerHTML = ''; 
 
-        const parentDiv = inputTitulo.closest('.new-element-Nomes');
+        // Carrega compromissos existentes para o nome
+        const compromissos = carregarCompromissos(tituloValor);
 
-        // Remove somente os inputs e o botão "enviar"
-        inputTitulo.remove();
-        labelTitulo.remove();
-        event.target.remove();
+        // Adiciona compromissos ao container se existirem
+        if (compromissos) {
+            newElementNomeToMensagem.innerHTML = compromissos;
+        }
 
-        // Adiciona o título dentro do contêiner, sem mexer no botão "Rem"
-        parentDiv.innerHTML += `
-        <section class='deixarJunto'>
-            <h1 class="tituloValorDoTitulo" id="tituloValorDoTitulo${id}"> ${tituloValor} </h1>
-        </section>
-        `
-;      
-
-        // Adiciona o novo título na seção de mensagens
+        // Permite criar novos compromissos para esse nome
         const newTitleElement = document.createElement('div');
         newTitleElement.innerHTML = `
         <section class="ContAddCompromissoMSG">
-            <button class="addCompromissoMSG" data-id="${id}" >Adicionar Compromisso para <strong>${tituloValor}</strong></button>
+            <button class="addCompromissoMSG" data-id="${id}">Adicionar Compromisso para <strong>${tituloValor}</strong></button>
         </section>
         `;
         newElementNomeToMensagem.appendChild(newTitleElement);
     }
 });
 
-
-
-
-
-//funcao q cria apos vc clicar em add compromisso
-// funcao que cria o compromisso
-newElementNomeToMensagem.addEventListener('click', function(event){
+// Função que cria o compromisso
+newElementNomeToMensagem.addEventListener('click', function(event) {
     if (event.target.classList.contains('addCompromissoMSG')) {
-        let date = new Date()
+        const id = event.target.getAttribute('data-id');
+        const tituloValor = document.getElementById(`titulo${id}`).value;
 
-        let dia = date.getDate()
-        let mes = date.getMonth()
-        if (mes < 10) {
-            mes++
-            mes = `0${mes}`
-        }
-        let year = date.getFullYear()
-
-        let hora = date.getHours();
-        let minutos = date.getMinutes();
-        let segundos = date.getSeconds();
-
-        let horario = `${hora}:${minutos}:${segundos} `
-        let dataComp = `${dia}/${mes}/${year}`
-
-        const newElementMSG = document.createElement('div')
-        
-        newElementMSG.classList.add('new-element-Mensagens')
-        newElementMSG.id = `container${qtddDeVezesQfoiAddNovoNome}`
-
+        // Cria o novo elemento de compromisso
+        const newElementMSG = document.createElement('div');
+        newElementMSG.classList.add('new-element-Mensagens');
         newElementMSG.innerHTML = `
-        
         <section class="compromisso">
-            <section class="horaData">
-                <p class="horario" id="horario"> ${horario} </p>
-                <p class="dataComp" id="dataComp"> ${dataComp}</p>
-            </section>
-            <label> Digite o horario do seu compromisso </label>
-            <input type="time" id="inputHorarioMSG" class="inputHorarioMSG" required> 
+            <label> Digite o horário do seu compromisso </label>
+            <input type="time" class="inputHorarioMSG" required> 
 
             <label> Digite a data do seu compromisso </label>
-            <input type="date" id="inputDataMSG" class="inputDataMSG" required> 
+            <input type="date" class="inputDataMSG" required> 
 
-            <label> Digite o titulo do seu compromisso </label>
-            <input id="inputTituloMSG" class="inputTituloMSG" required> 
-            
+            <label> Digite o título do seu compromisso </label>
+            <input class="inputTituloMSG" required> 
+
             <label> Digite um resumo do seu compromisso </label>
-            <input id="inputResumoMSG" class="inputResumoMSG" required>
-            
+            <input class="inputResumoMSG" required>
+
             <section class="soParaDeirarNaDireita">
-                <button class="RemovendoCompromissoMSG" id="RemovendoCompromissoMSG${qtddDeVezesQfoiAddNovoNome}"> Rem </button>
-                <button class="FinalizandoCompromissoMSG" id="addCompromissoMSG${qtddDeVezesQfoiAddNovoNome}"> ADD </button>
+                <button class="RemovendoCompromissoMSG"> Rem </button>
+                <button class="FinalizandoCompromissoMSG"> ADD </button>
             </section>
         </section>
-         `    
-            
+        `;
 
-    newElementNomeToMensagem.appendChild(newElementMSG);
-
+        newElementNomeToMensagem.appendChild(newElementMSG);
     }
-})
+});
 
-
-//função que vai receber o add e colocar no mensagens
-newElementNomeToMensagem.addEventListener('click', function(event){
+// Função para finalizar compromisso e salvar
+newElementNomeToMensagem.addEventListener('click', function(event) {
     if (event.target.classList.contains('FinalizandoCompromissoMSG')) {
-        const parentSection = event.target.closest('.compromisso'); //pega divisao mae
+        const parentSection = event.target.closest('.compromisso');
+        const inputHorarioComprom = parentSection.querySelector('.inputHorarioMSG').value;
+        const inputDataComprom = parentSection.querySelector('.inputDataMSG').value;
+        const inputTituloComprom = parentSection.querySelector('.inputTituloMSG').value;
+        const inputResumoComprom = parentSection.querySelector('.inputResumoMSG').value;
 
-        const horario = document.getElementById('horario').innerHTML
-        const dataComp = document.getElementById('dataComp').innerHTML
-
-        const inputHorarioComprom = parentSection.querySelector('.inputHorarioMSG').value
-        const inputDataComprom = parentSection.querySelector('.inputDataMSG').value
-        const inputTituloComprom = String(parentSection.querySelector('.inputTituloMSG').value);
-        const inputResumoComprom = String(parentSection.querySelector('.inputResumoMSG').value);
-
-        parentSection.querySelector('.inputHorarioMSG').remove()
-        parentSection.querySelector('.inputDataMSG').remove()
-        parentSection.querySelector('.inputTituloMSG').remove()
-        parentSection.querySelector('.inputResumoMSG').remove()
-        event.target.remove()
-        
-        
-        
-        parentSection.innerHTML =
-        `
-        <section id="compromisso" class="compromisso">
-            <section class="horaData">
-                <p class="horario" id="horario"> ${horario} </p>
-                <p class="dataComp" id="dataComp"> ${dataComp}</p>
+        // Monta o HTML do compromisso finalizado
+        parentSection.innerHTML = `
+        <section class="compromisso-finalizado">
+            <p><strong>${inputTituloComprom}</strong></p>
+            <section class="deixarJunto">
+                <p>${inputDataComprom}</p>
+                <p style="margin-left:15px">${inputHorarioComprom}</p>
             </section>
-            <section class="horaDataDoSeuCompromisso">
-                <p class="inputHorarioComprom" id="dataComp">  ${inputHorarioComprom}</p>
-                <p class="inputDataComprom" id="dataComp">  ${inputDataComprom}</p>
-                <p class="inputTituloComprom" id="horario"> <strong>  ${inputTituloComprom} </strong></p>
-                <p class="inputResumoComprom" id="dataComp">  '${inputResumoComprom}'</p>
-            </section>     
-            <section class="soParaDeirarNaDireita">
-                <button class="RemovendoCompromissoMSG" id="RemovendoCompromissoMSG${qtddDeVezesQfoiAddNovoNome}"> Rem </button>
-            </section>       
+            <p>'${inputResumoComprom}'</p>
+            <button class="RemovendoCompromissoMSG">Rem</button>
         </section>
-        `
+        `;
+
+        const tituloAtual = document.querySelector('.resultadoInputNomes strong').innerText;
+        // Salva o compromisso no localStorage
+        salvarCompromisso(tituloAtual, parentSection.innerHTML);
     }
-})
+});
 
-/*
-fazer com que cada nome tenha sua proprio compromissos e que pode addionar quantos quiseres
-
-olhar no chat gpt 
-*/
-
-
-
-//função para remover o compromiss
-newElementNomeToMensagem.addEventListener('click', function(event){
+// Função para remover o compromisso
+newElementNomeToMensagem.addEventListener('click', function(event) {
     if (event.target.classList.contains('RemovendoCompromissoMSG')) {
-        const parentDiv = event.target.closest('.new-element-Mensagens');
+        const parentDiv = event.target.closest('.compromisso');
         parentDiv.remove();
-
-
     }
-})
-
-
+});
 
 // Função para remover o contêiner correspondente
 elementContainer.addEventListener('click', function(event) {
     if (event.target.classList.contains('removerButton')) {
-       
-        const parentDiv = event.target.closest('.new-element-Nomes');  // Acessa o div pai mais próximo que contém o botão "Remover"
-        parentDiv.remove();  // Remove o contêiner 
-
+        const parentDiv = event.target.closest('.new-element-Nomes');
+        parentDiv.remove();
     }
 });
 
+// Função para salvar compromissos no localStorage
+function salvarCompromisso(nome, compromisso) {
+    let dadosSalvos = localStorage.getItem('compromissosPorNome');
+    dadosSalvos = dadosSalvos ? JSON.parse(dadosSalvos) : {};
+    if (!dadosSalvos[nome]) {
+        dadosSalvos[nome] = [];
+    }
+    dadosSalvos[nome].push(compromisso);
+    localStorage.setItem('compromissosPorNome', JSON.stringify(dadosSalvos));
+}
+
+// Função para carregar compromissos de um nome específico
+function carregarCompromissos(nome) {
+    let dadosSalvos = localStorage.getItem('compromissosPorNome');
+    dadosSalvos = dadosSalvos ? JSON.parse(dadosSalvos) : {};
+    return dadosSalvos[nome] ? dadosSalvos[nome].map(comp => `<div>${comp}</div>`).join('') : ''; 
+}

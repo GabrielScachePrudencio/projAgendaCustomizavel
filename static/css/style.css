@@ -30,7 +30,7 @@
 
 .agendaNomes{
     overflow-y: scroll;
-    max-height: 500px;
+    max-height: 530px;
     border-top: 1px solid black;
     width: 25%;
 
@@ -43,6 +43,7 @@
     font-size: 30px;
     margin-left: 10px;
 }
+
 
 .agendaNomes div{
     margin: 10px 10px 10px 10px;
@@ -119,9 +120,6 @@ input{
 
 .conteudoMensagens{
     overflow-y: scroll;
-    
-    text-align: right;
-
 }
 
 
@@ -132,8 +130,8 @@ input{
 
 .compromisso{
     border: 1px solid black;
-    text-align: left;
-    margin: 20px 0px;
+    padding: 3% 2%;
+    margin: 1% 2%;
     padding: 10px;
 }
 
@@ -151,19 +149,11 @@ input{
     margin-top: 20px;
 }
 
-.horaData {
-    display: flex;
-    font-size: 12px;
-}
-.horaData p{
-    margin-right: 10px;
-}
 
-.horaDataDoSeuCompromisso{
-    display: flex;
-}
-.horaDataDoSeuCompromisso p{
-    margin-right: 10px;
+.compromisso-finalizado{
+    padding: 3% 2%;
+    margin: 1% 2%;
+    border: 1px solid black;
 }
 
 
