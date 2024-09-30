@@ -9,6 +9,19 @@ const newElementNomeToMensagem = document.getElementById('newElementNomeToMensag
 
 let qtddDeVezesQfoiAddNovoNome = 0;
 
+//função que vai permitir alterar a ordem do elementos nomes
+var permitirMoverNomes = new Sortable(document.getElementById('elementContainer'), {
+    animation: 150,
+    ghostClass: 'sortable-ghost',
+})
+
+var permitirMoverComprom = new Sortable(document.getElementById('newElementNomeToMensagem'), {
+    animation: 150,
+    filter: '.ContAddCompromissoMSG', // faz com que todos os elementos dentro de newElementNomeToMensagem tenham a prop menos .ContAddCompromissoMSG
+    ghostClass: 'sortable-ghost',
+})
+
+
 // Cria o elemento com nomes e inputs
 addElementButton.addEventListener('click', function() {
     event.preventDefault(); 
@@ -20,6 +33,7 @@ addElementButton.addEventListener('click', function() {
 
         // Atribui uma classe
         newElement.classList.add('new-element-Nomes');
+
         newElement.id = `container${qtddDeVezesQfoiAddNovoNome}`;
 
         newElement.innerHTML =
@@ -68,7 +82,8 @@ elementContainer.addEventListener('click', function(event) {
         <section class='deixarJunto'>
             <h1 class="tituloValorDoTitulo" id="tituloValorDoTitulo${id}"> ${tituloValor} </h1>
         </section>
-        `;      
+        `
+;      
 
         // Adiciona o novo título na seção de mensagens
         const newTitleElement = document.createElement('div');
@@ -80,6 +95,9 @@ elementContainer.addEventListener('click', function(event) {
         newElementNomeToMensagem.appendChild(newTitleElement);
     }
 });
+
+
+
 
 
 //funcao q cria apos vc clicar em add compromisso
@@ -164,7 +182,7 @@ newElementNomeToMensagem.addEventListener('click', function(event){
         
         parentSection.innerHTML =
         `
-        <section class="compromisso">
+        <section id="compromisso" class="compromisso">
             <section class="horaData">
                 <p class="horario" id="horario"> ${horario} </p>
                 <p class="dataComp" id="dataComp"> ${dataComp}</p>
@@ -212,3 +230,4 @@ elementContainer.addEventListener('click', function(event) {
 
     }
 });
+
