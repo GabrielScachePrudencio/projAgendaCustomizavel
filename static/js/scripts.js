@@ -1,8 +1,6 @@
 /*
 Metas:
--formartar os nomes deixar o titulo em cima a data e hora em baixo juntas e o resumo em baixo
-
-- fazer o add para o 'nome' deixa-lo em um lugar acima dos compromisso baxicamente criar um div antes so para ele nao ser afetado
+- fazer com q mudar a ordem dos elementos fique salva
 
 - mudar o input depois de dar o nome ele remover o input e o label e deixar so o nome
 
@@ -86,19 +84,16 @@ elementContainer.addEventListener('click', function(event) {
             newElementNomeToMensagem.innerHTML = compromissos;
         }
 
-        // Permite criar novos compromissos para esse nome
-        const newTitleElement = document.createElement('div');
-        newTitleElement.innerHTML = `
-        <section class="ContAddCompromissoMSG">
-            <button class="addCompromissoMSG" data-id="${id}">Adicionar Compromisso para <strong>${tituloValor}</strong></button>
-        </section>
-        `;
-        newElementNomeToMensagem.appendChild(newTitleElement);
+        // Agora cria um novo botão corretamente
+        const titleAserAlterado = document.querySelector('.ContAddCompromissoMSG');
+        titleAserAlterado.innerHTML = `<button class="addCompromissoMSG" data-id="${id}">Adicionar Compromisso para <strong>${tituloValor}</strong></button>`;
     }
 });
 
-// Função que cria o compromisso
-newElementNomeToMensagem.addEventListener('click', function(event) {
+
+
+// acao q vai criar os compromisso ela pega o botao no index.html
+document.body.addEventListener('click', function(event) {
     if (event.target.classList.contains('addCompromissoMSG')) {
         const id = event.target.getAttribute('data-id');
         const tituloValor = document.getElementById(`titulo${id}`).value;
@@ -166,6 +161,8 @@ newElementNomeToMensagem.addEventListener('click', function(event) {
         parentDiv.remove();
     }
 });
+
+
 
 // Função para remover o contêiner correspondente
 elementContainer.addEventListener('click', function(event) {
